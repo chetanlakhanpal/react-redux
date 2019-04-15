@@ -125,7 +125,7 @@ export function _getUsers () {
   })
 }
 
-export function _getQuestions () {
+export async function _getQuestions () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...questions}), 1000)
   })
