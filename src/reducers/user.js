@@ -1,19 +1,25 @@
-import { GET_USER, SET_USER } from "../actions/user";
+import { SET_USERS, LOGIN_USER,  LOGOUT_USER} from "../actions/user";
 
 const initialState = {
-  users: []
+  users: [],
+  loggedInUser: {}
 }
 
 
-const currentPage = (state = initialState, action) => {
+const users = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER:
-      return state
-    case SET_USER:
-      return state
+    case LOGIN_USER:
+      window.sessionStorage.setItem('user', JSON.stringify(action.loggedInUser))
+      console.log({...state, loggedInUser: action.loggedInUser})
+      return {...state, loggedInUser: action.loggedInUser}
+    case LOGOUT_USER:
+      window.sessionStorage.removeItem('user')
+      return {...state, loggedInUser: null}
+    case SET_USERS:
+      return {...state, users: action.users}
     default:
-    return state
+      return state
   }
 }
 
-export default currentPage
+export default users
