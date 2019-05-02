@@ -1,18 +1,18 @@
-import { FETCH_QUESTIONS_FOR_LOGGEDIN_USER,  CREATE_QUESTION_BY_LOGGEDIN_USER } from '../actions/question'
+import { SET_QUESTIONS,  CREATE_QUESTION } from '../actions/question'
 
 const initialState = {
-  questions: []
+  allQuestions: []
 }
 
-const question = (state = initialState, action) => {
+const questions = (state = initialState, action) => {
   switch(action.type){
-    case CREATE_QUESTION_BY_LOGGEDIN_USER:
+    case CREATE_QUESTION:
       return state
-      case FETCH_QUESTIONS_FOR_LOGGEDIN_USER:
-      return {...state, questions: action.questions}
+    case SET_QUESTIONS:
+      return {...state, allQuestions: action.questions}
     default:
       return state
   }
 }
 
-export default question
+export default questions

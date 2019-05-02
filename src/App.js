@@ -5,7 +5,6 @@ import './App.css';
 import Header from "./components/Header/Header";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
 import Dashboard from './components/Dashboard/Dashboard';
-import Question from './components/Question/Question';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { fetchUsers, loginUser } from '../src/actions/user'
@@ -43,7 +42,6 @@ class App extends Component {
         />
           <Route exact path="/dashboard" exact component={Dashboard}/>
           <Route exact path="/login" exact component={Login}/>
-          <Route exact path="/new-question" component={Question}/>
         </section>
         </Router>
       </div>

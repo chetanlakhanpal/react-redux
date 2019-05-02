@@ -1,20 +1,24 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import Tab from "../helpers/Tab";
+import { fetchUsers } from '../../actions/user'
 
-class Dashboard extends PureComponent {
-
-  constructor(props){
-    super(props)
+const Dashboard = ({questions, loggedInUser}) => {
+  if (!loggedInUser.answers){
+    return <div></div>
   }
 
-  componentDidMount() {
+  const answeredQuestionsData = Object.keys(loggedInUser.answers)
+  const unansweredQuestion = questions.filter(question => answeredQuestionsData.indexOf(question.id) !== -1 ) || []
+  const answeredQuestion = questions.filter(question => answeredQuestionsData.indexOf(question.id) > -1 ) || []
 
-  }
+  const tabData = { 'Unanswered Questions': unansweredQuestion, 'Answered Questions': answeredQuestion }
 
-  render = () => (<div></div>)
-
+  return (
+    <Tab data={tabData}/>
+  )
 }
 
-const mapStateToProps = (store) => ({questions: store.questions})
+const mapStateToProps = (store) => ({questions: store.questions.allQuestions, loggedInUser: store.users.loggedInUser})
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps, {fetchUsers})(Dashboard)

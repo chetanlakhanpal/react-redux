@@ -1,4 +1,4 @@
-import { SET_USERS, LOGIN_USER,  LOGOUT_USER} from "../actions/user";
+import { SET_USERS, LOGIN_USER, LOGOUT_USER} from "../actions/user";
 
 const initialState = {
   users: [],
@@ -10,7 +10,6 @@ const users = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:
       window.sessionStorage.setItem('user', JSON.stringify(action.loggedInUser))
-      console.log({...state, loggedInUser: action.loggedInUser})
       return {...state, loggedInUser: action.loggedInUser}
     case LOGOUT_USER:
       window.sessionStorage.removeItem('user')
