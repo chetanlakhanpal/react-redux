@@ -1,13 +1,35 @@
-import { React } from "react";
-import Card from '../helpers/Card'
+import React, { PureComponent } from "react";
+import { Cards } from '../helpers/Card'
 
-const Tab = (props) => {
+class Tab extends PureComponent {
 
-  const tabTypes = props.data ? Object.keys(props.data) : []
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: props.data
+    }
+  }
+  
 
-  return (
+  activateTab = (index) => {
+    this.setState(state => {
+      let newState = state.data.map(data => ({...data, visibility: false}))
+      newState[index].visibility = true
+      return {data: newState}
+    })
+  }
+  
+  render = () =>  (
     <div className="tabs">
-    <h1>Test</h1>
+      {this.state.data.map((tab, index) => (
+        <div key={index} className="tab">
+          <button type="button" onClick={() => this.activateTab(index)} className="btn btn-success" disabled={tab.visibility}>
+            <strong>{tab.label}</strong>
+          </button>
+        </div>
+      ))}
+
+      <Cards data={this.state.data}/>
     </div>
   )
 }

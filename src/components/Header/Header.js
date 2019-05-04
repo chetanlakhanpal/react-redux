@@ -10,9 +10,10 @@ const Header = ({user}) => (
         <NavLink className="p-2 text-dark" to="/new-question" activeClassName="selected">New Question</NavLink>
         <NavLink className="p-2 text-dark" to="/profile" activeClassName="selected">Hello,</NavLink>
       </nav>
-      { user && (
+      <Link to="/logout" className="btn btn-outline-primary">Logout</Link>
+      {/* { user && (
         <Link to="/logout" className="btn btn-outline-primary">Logout</Link>
-      )}
+      )} */}
     </div>
 )
 

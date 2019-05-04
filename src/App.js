@@ -7,19 +7,25 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
-import { fetchUsers, loginUser } from '../src/actions/user'
+import { fetchUsers, loginUser, logoutUser } from '../src/actions/user'
 
 class App extends Component {
 
   constructor(){
     super()
-    const userAlreadyLoggedIn = window.sessionStorage.getItem('user') !== 'undefined' && window.sessionStorage.getItem('user') !== null
-    this.user =  userAlreadyLoggedIn ? JSON.parse(window.sessionStorage.getItem('user')) : null
+    this.user = null
+    try{
+      this.user = JSON.parse(window.sessionStorage.getItem('user'))
+    }catch(e){
+      console.warn(`No data found redirecting to Login`)
+    }
   }
 
   componentDidMount() {
     this.props.fetchUsers()
-    this.props.loginUser(this.user)
+    if(this.user !== null){
+      this.props.loginUser(this.user)
+    }
   }
 
   render() {
@@ -30,11 +36,14 @@ class App extends Component {
           <Header user={this.props.user}/>
         </div>
         <section>
-        <Route exact path="/" render={() => {
-          const path =  this.user ? '/dashboard' : '/login'
+
+        {/* <Route exact path="/" render={() => {
+          console.log(this.user)
+          const path =  this.user !== null? '/dashboard' : '/login'
           return <Redirect to={path} />
           }}
         />
+         */}
         <Route exact path="/logout" render={() => {
           this.props.logoutUser()
           return <Redirect to='/login' />
@@ -53,5 +62,6 @@ export default connect((store) => ({
   user: store.users.loggedInUser
 }), {
   fetchUsers,
-  loginUser
+  loginUser,
+  logoutUser
 })(App)

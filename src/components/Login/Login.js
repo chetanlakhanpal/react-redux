@@ -15,11 +15,11 @@ class Login extends PureComponent {
     const user = this.props.users[value]
     this.props.loginUser(user)
   }
-
+ bn
   render = () => {
     const users = this.props.users || {}
     const userKeys = Object.keys(users)
-    if(this.props.loggedInUser){
+    if(this.props.loggedInUser !== null){
       return <Redirect to='/dashboard' />
     }
   
