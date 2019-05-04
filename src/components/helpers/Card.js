@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export const Card = ({data, submitEnabled}) => {
+const _Card = ({data, submitEnabled, users}) => {
 
 const submitClick = () => {
 
@@ -10,7 +11,7 @@ return (
 <div className="card">
   <div>
     <div className="card-header">
-      <h3>{data.author} asks:</h3>
+      <h3>{users[data.author].name} asks:</h3>
     </div>
     <div className="card-body">
       <h4>Would you Rather ...</h4>
@@ -25,6 +26,8 @@ return (
   </div>
 </div>
 )}
+
+export const Card = connect((store) => ({users: store.users.users}))(_Card)
 
 export const Cards = ({data}) => {
   const visibleData = data.filter(data => data.visibility)[0]
