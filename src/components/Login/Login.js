@@ -7,15 +7,22 @@ class Login extends PureComponent {
 
   constructor(){
     super()
-    this.dropdownRef = React.createRef()
+    this.state = {
+      dropdownValue: ''
+    }
+  }
+
+  onChange = (value) => {
+    this.setState(state => {
+      return {dropdownValue: value}
+    })
   }
 
   onSubmit = () => {
-    const value = this.dropdownRef.current.value
-    const user = this.props.users[value]
+    const user = this.props.users[this.state.dropdownValue]
     this.props.loginUser(user)
   }
- bn
+ 
   render = () => {
     const users = this.props.users || {}
     const userKeys = Object.keys(users)
@@ -32,14 +39,14 @@ class Login extends PureComponent {
       <div className="card-body">
         <img src="" />
         <div>
-          <select ref={this.dropdownRef}>
+          <select onChange={(event) => this.onChange(event.target.value)}>
           <option value=''>Select</option>
             {userKeys.map(value => (
               <option key={value} value={value}>{users[value].name}</option>
             ))}
           </select>
         </div> 
-        <button className="btn btn-primary" onClick={this.onSubmit}>Login</button>  
+        <button className="btn btn-primary" onClick={this.onSubmit} disabled={this.state.dropdownValue === ''}>Login</button>  
       </div>
     </div>
     )

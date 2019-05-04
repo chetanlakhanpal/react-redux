@@ -16,7 +16,9 @@ const Dashboard = ({questions, loggedInUser}) => {
                    { data: answeredQuestion, visibility: false, label: 'Answered Questions', type: 'ANSWERED' } ]
 
   return (
-    <Tab data={tabData}/>
+    <div className="col-12">
+      <Tab data={tabData}/>
+    </div>
   )
 }
 

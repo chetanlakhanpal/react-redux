@@ -21,14 +21,15 @@ class Tab extends PureComponent {
   
   render = () =>  (
     <div className="tabs">
-      {this.state.data.map((tab, index) => (
-        <div key={index} className="tab">
-          <button type="button" onClick={() => this.activateTab(index)} className="btn btn-success" disabled={tab.visibility}>
-            <strong>{tab.label}</strong>
-          </button>
-        </div>
-      ))}
-
+      <div className="row">
+        {this.state.data.map((tab, index) => (
+          <div key={index} className="tab">
+            <button type="button" onClick={() => this.activateTab(index)} className="btn btn-success" disabled={tab.visibility}>
+              <strong>{tab.label}</strong>
+            </button>
+          </div>
+        ))}
+      </div>
       <Cards data={this.state.data}/>
     </div>
   )

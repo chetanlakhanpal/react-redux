@@ -30,30 +30,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Router>
+      <Router>
         <div className="App">
           <Header user={this.props.user}/>
+          <section className="container">
+            <Route exact path="/logout" render={() => {
+              this.props.logoutUser()
+              return <Redirect to='/login' />
+              }}
+            />
+              <Route exact path="/dashboard" exact component={Dashboard}/>
+              <Route exact path="/login" exact component={Login}/>
+          </section>
         </div>
-        <section>
-
-        {/* <Route exact path="/" render={() => {
-          console.log(this.user)
-          const path =  this.user !== null? '/dashboard' : '/login'
-          return <Redirect to={path} />
-          }}
-        />
-         */}
-        <Route exact path="/logout" render={() => {
-          this.props.logoutUser()
-          return <Redirect to='/login' />
-          }}
-        />
-          <Route exact path="/dashboard" exact component={Dashboard}/>
-          <Route exact path="/login" exact component={Login}/>
-        </section>
-        </Router>
-      </div>
+      </Router>
     );
   }
 }
