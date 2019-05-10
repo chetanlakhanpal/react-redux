@@ -34,7 +34,7 @@ export const Cards = ({data}) => {
   return (
   <div className="tab-body">
     {cardData.map((tabData, index) => (
-      <div className="row">
+      <div className="row" key={index}>
       <Card key={index} data={tabData} submitEnabled={btnEnabled}/>
       </div>
     ))}

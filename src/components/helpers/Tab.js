@@ -10,7 +10,6 @@ class Tab extends PureComponent {
     }
   }
   
-
   activateTab = (index) => {
     this.setState(state => {
       let newState = state.data.map(data => ({...data, visibility: false}))

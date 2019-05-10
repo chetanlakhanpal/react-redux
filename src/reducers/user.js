@@ -5,7 +5,6 @@ const initialState = {
   loggedInUser: null
 }
 
-
 const users = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:

@@ -5,7 +5,7 @@ import { loginUser } from "../../actions/user";
 
 class Login extends PureComponent {
 
-  constructor(){
+  constructor(props){
     super()
     this.state = {
       dropdownValue: ''
@@ -26,6 +26,7 @@ class Login extends PureComponent {
   render = () => {
     const users = this.props.users || {}
     const userKeys = Object.keys(users)
+
     if(this.props.loggedInUser !== null){
       return <Redirect to='/dashboard' />
     }
