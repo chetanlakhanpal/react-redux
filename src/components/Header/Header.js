@@ -9,8 +9,8 @@ const Header = ({user, location}) => {
         {user && (
           <nav className="my-2 my-md-0 mr-md-3">
             <NavLink className="p-2 text-dark" to="/dashboard" activeClassName="selected">Dashboard</NavLink>
+            <NavLink className="p-2 text-dark" to="/add" activeClassName="selected">New Question</NavLink>
             <NavLink className="p-2 text-dark" to="/leaderboard" activeClassName="selected">Leader Board</NavLink>
-            <NavLink className="p-2 text-dark" to="/new-question" activeClassName="selected">New Question</NavLink>
             <span className="p-2 text-dark" >Hello, {user.name}</span>
             <Link to="/logout" className="btn btn-outline-primary">Logout</Link>
           </nav>

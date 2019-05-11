@@ -1,10 +1,10 @@
 import React, { PureComponent } from "react";
 import { connect } from 'react-redux'
-import './NewQuestion.css'
+import './Question.css'
 import { addQuestion } from "../../actions/question";
 import { Redirect } from 'react-router-dom'
 
-class NewQuestion extends PureComponent {
+class Question extends PureComponent {
 
   constructor(props) {
     super(props)
@@ -76,4 +76,4 @@ class NewQuestion extends PureComponent {
 
 const mapStateToProps = (store) => ({author: store.users.loggedInUser})
 
-export default connect(mapStateToProps, {addQuestion})(NewQuestion)
+export default connect(mapStateToProps, {addQuestion})(Question)

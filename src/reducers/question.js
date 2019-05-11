@@ -1,4 +1,4 @@
-import { SET_QUESTIONS,  ADD_QUESTION } from '../actions/question'
+import { SET_QUESTIONS,  ADD_QUESTION, ADD_ANSWER } from '../actions/question'
 
 const initialState = {
   allQuestions: [],
@@ -6,8 +6,12 @@ const initialState = {
 }
 
 const questions = (state = initialState, action) => {
-  console.log(action.type)
   switch(action.type){
+    case ADD_ANSWER:
+      const {authedUser, qid, answer} = action.data
+      let allQuestions = state.allQuestions
+      allQuestions[qid][answer].votes.push(authedUser)
+      return {savingQuestion: state.savingQuestion, allQuestions: allQuestions}
     case ADD_QUESTION:
       let questions = state.allQuestions
       questions[action.data.id] = action.data

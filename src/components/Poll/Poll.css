@@ -1,0 +1,9 @@
+.answers.selected {
+  border-color: green;
+  background: rgba(0, 255, 0, 0.5)
+}
+
+.answers{
+  border: 1px solid;
+  border-radius: 1px;
+}

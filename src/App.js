@@ -9,7 +9,7 @@ import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { fetchUsers, loginUser, logoutUser } from '../src/actions/user'
 import NotFound from "./components/NotFound/NotFound"
-import NewQuestion from './components/NewQuestion/NewQuestion';
+import Question from './components/Question/Question';
 import Poll from './components/Poll/Poll'
 
 class App extends Component {
@@ -31,8 +31,8 @@ class App extends Component {
             <section className="container">
             <Switch>
 
-                <Route path="/poll/:id" component={Poll} />
-                <Route exact path="/new-question" component={NewQuestion} />
+                <Route path="/questions/:question_id" component={Poll} />
+                <Route exact path="/add" component={Question} />
                 <Route exact path="/login" exact component={Login}/>
                 <Route exact path="/dashboard" exact component={Dashboard}/>
                 <Route exact path="/logout" render={() => {

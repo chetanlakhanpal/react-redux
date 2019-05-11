@@ -7,7 +7,9 @@ const Dashboard = ({questions, loggedInUser}) => {
   if (loggedInUser === null || loggedInUser.answers === undefined || loggedInUser.answers === null){
     return <div></div>
   }
-  const allQuestions = Object.values(questions)
+  const allQuestions = Object.values(questions).sort((value1, value2) => {
+    return value1.timestamp < value2.timestamp ? 1 : -1
+  })
   const answeredQuestionsData = Object.keys(loggedInUser.answers)
   const unansweredQuestion = allQuestions.filter(question => answeredQuestionsData.indexOf(question.id) === -1 )
   const answeredQuestion = allQuestions.filter(question => answeredQuestionsData.indexOf(question.id) > -1 )

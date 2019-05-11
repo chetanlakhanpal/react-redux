@@ -1,11 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-const _Card = ({data, submitEnabled, users}) => {
-
-const submitClick = () => {
-
-}
+const _Card = ({data, users}) => {
 
 return (
 <div className="card">
@@ -13,14 +10,12 @@ return (
     <h3>{users[data.author].name} asks:</h3>
   </div>
   <div className="card-body">
+    <img src={'./images/' + users[data.author].avatarURL} width="100" className="rounded-circle" />
     <h4>Would you Rather ...</h4>
-    <input type="radio" name={data.id} value={data.optionOne.text} id={data.id+"_1"}/>
-    <label htmlFor={data.id+"_1"}>{data.optionOne.text}</label>
-    <input type="radio" name={data.id} value={data.optionTwo.text} id={data.id+"_2"}/>
-    <label htmlFor={data.id+"_2"}>{data.optionTwo.text}</label>
-    {submitEnabled && (
-      <button type="button" className="btn btn-primary" onClick={() => submitClick}>Submit</button>
-    )}
+    <p>{data.optionOne.text}</p>
+    <p>or</p>
+    <p>{data.optionTwo.text}</p>
+    <NavLink className="btn btn-primary" to={'/questions/'+ data.id}>View Poll</NavLink>
     </div>
 </div>
 )}
@@ -30,13 +25,17 @@ export const Card = connect((store) => ({users: store.users.users}))(_Card)
 export const Cards = ({data}) => {
   const visibleData = data.filter(data => data.visibility)[0]
   const cardData = visibleData.data
-  const btnEnabled = visibleData.type === 'UNANSWERED'
+
   return (
   <div className="tab-body">
     {cardData.map((tabData, index) => (
       <div className="row" key={index}>
-      <Card key={index} data={tabData} submitEnabled={btnEnabled}/>
+      <Card key={index} data={tabData}/>
       </div>
     ))}
+    {cardData.length === 0 && (
+      <p>No polls to show.</p>
+    )}
   </div>
-  )}
+  )
+}
