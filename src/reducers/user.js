@@ -1,4 +1,4 @@
-import { SET_USERS, LOGIN_USER, LOGOUT_USER} from "../actions/user";
+import { SET_USERS, LOGIN_USER, LOGOUT_USER, ADD_QUESTION_FOR_LOGGEDIN_USER} from "../actions/user";
 
 const initialState = {
   users: [],
@@ -7,6 +7,10 @@ const initialState = {
 
 const users = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_QUESTION_FOR_LOGGEDIN_USER:
+      let userData = state.loggedInUser
+      userData.questions.push(action.data)
+      return {...state, loggedInUser: userData}
     case LOGIN_USER:
       // window.sessionStorage.setItem('user', JSON.stringify(action.loggedInUser))
       return {...state, loggedInUser: action.loggedInUser}

@@ -1,10 +1,16 @@
+import { _saveQuestion } from "../utils/_DATA";
+import { ADD_QUESTION_FOR_LOGGEDIN_USER } from "../actions/user";
+
 export const SET_QUESTIONS = 'SET_QUESTIONS'
-export const CREATE_QUESTION = 'CREATE_QUESTION'
+export const ADD_QUESTION = 'ADD_QUESTION'
 
 export const fetchQuestions = () => (dispatch) => {
   dispatch({type: SET_QUESTIONS})
 }
 
-export const createQuestion = (question) => (dispatch) => {
-  dispatch({type: CREATE_QUESTION, data: question})
+export const addQuestion = (question) => (dispatch) => {
+  return _saveQuestion(question).then((data) => {
+    dispatch({type: ADD_QUESTION_FOR_LOGGEDIN_USER, data: data.id})
+    dispatch({type: ADD_QUESTION, data: data})
+  })
 }

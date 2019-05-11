@@ -9,6 +9,8 @@ import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { fetchUsers, loginUser, logoutUser } from '../src/actions/user'
 import NotFound from "./components/NotFound/NotFound"
+import NewQuestion from './components/NewQuestion/NewQuestion';
+import Poll from './components/Poll/Poll'
 
 class App extends Component {
 
@@ -21,11 +23,16 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route render={(props) => <Header {...props} user={this.props.user}/>} />
+          <Route path="/"  render={({location}) => {
+            if(location.pathname !== '/login' && !this.props.user){
+              return <Redirect to='/login' />
+              }
+            }}/>
             <section className="container">
             <Switch>
-                <Route path="/" exact render={() => (
-                  <Redirect to='/login' />
-                )} />
+
+                <Route path="/poll/:id" component={Poll} />
+                <Route exact path="/new-question" component={NewQuestion} />
                 <Route exact path="/login" exact component={Login}/>
                 <Route exact path="/dashboard" exact component={Dashboard}/>
                 <Route exact path="/logout" render={() => {
