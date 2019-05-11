@@ -23,10 +23,8 @@ const users = (state = initialState, action) => {
       userData.questions.push(action.data)
       return {...state, loggedInUser: userData}
     case LOGIN_USER:
-      // window.sessionStorage.setItem('user', JSON.stringify(action.loggedInUser))
       return {...state, loggedInUser: action.loggedInUser}
     case LOGOUT_USER:
-      // window.sessionStorage.removeItem('user')
       return {...state, loggedInUser: null}
     case SET_USERS:
       return {...state, users: action.users}
