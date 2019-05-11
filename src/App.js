@@ -11,6 +11,7 @@ import { fetchUsers, loginUser, logoutUser } from '../src/actions/user'
 import NotFound from "./components/NotFound/NotFound"
 import Question from './components/Question/Question';
 import Poll from './components/Poll/Poll'
+import Leaderboard from './components/Leaderboard/Leaderboard'
 
 class App extends Component {
 
@@ -30,7 +31,7 @@ class App extends Component {
             }}/>
             <section className="container">
             <Switch>
-
+                <Route path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:question_id" component={Poll} />
                 <Route exact path="/add" component={Question} />
                 <Route exact path="/login" exact component={Login}/>
