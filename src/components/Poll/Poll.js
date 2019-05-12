@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { addAnswer } from "../../actions/question";
 import './Poll.css'
+import NotFound from "../NotFound/NotFound";
 class Poll extends PureComponent {
   
   constructor(){
@@ -49,6 +50,11 @@ class Poll extends PureComponent {
     
     const questionId = this.props.location.pathname.split('/').pop()
     const question = this.props.questions[questionId]
+
+    if(!question){
+      return (<NotFound />)
+    }
+
     const user = this.props.users.users[question.author]
     const totalVotes = question.optionOne.votes.length + question.optionTwo.votes.length
     const percentOne = ((question.optionOne.votes.length/totalVotes) * 100).toFixed(1)
@@ -61,7 +67,7 @@ class Poll extends PureComponent {
           {user.name} asks: 
           </div>
           <div className="card-body">
-            <img src={'../images/' + user.avatarURL} width="100" className="rounded-circle" />
+            <img src={'../images/' + user.avatarURL} width="100" className="rounded-circle" alt=""/>
             {!this.state.submitted && (
               <form onSubmit={(event) => this.onSubmit(event)}>
                 <h1>Would you rather...</h1>

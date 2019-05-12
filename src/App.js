@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Header from "./components/Header/Header";
@@ -7,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
-import { fetchUsers, loginUser, logoutUser } from '../src/actions/user'
+import { fetchUsers, loginUser } from '../src/actions/user'
 import NotFound from "./components/NotFound/NotFound"
 import Question from './components/Question/Question';
 import Poll from './components/Poll/Poll'
@@ -26,7 +25,10 @@ class App extends Component {
           <Route render={(props) => <Header {...props} user={this.props.user}/>} />
           <Route path="/"  render={({location}) => {
             if(location.pathname !== '/login' && !this.props.user){
-              return <Redirect to='/login' />
+              return <Redirect to={{
+                pathname: '/login',
+                state: {visitedPage: location.pathname}
+              }} />
               }
             }}/>
             <section className="container">
@@ -34,11 +36,13 @@ class App extends Component {
                 <Route path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:question_id" component={Poll} />
                 <Route exact path="/add" component={Question} />
-                <Route exact path="/login" exact component={Login}/>
-                <Route exact path="/dashboard" exact component={Dashboard}/>
+                <Route exact path="/login" component={Login}/>
+                <Route exact path="/dashboard" component={Dashboard}/>
                 <Route exact path="/logout" render={() => {
-                  this.props.logoutUser()
-                  return <Redirect to='/login' 
+                  return <Redirect to={{
+                    pathname:'/login',
+                    state: {type: 'logout'}
+                  }} 
                   />
                 }} />
                 <Route component={NotFound} />
@@ -54,6 +58,5 @@ export default connect((store) => ({
   user: store.users.loggedInUser
 }), {
   fetchUsers,
-  loginUser,
-  logoutUser
+  loginUser
 })(App)

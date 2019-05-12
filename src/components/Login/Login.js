@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
-import { loginUser } from "../../actions/user";
+import { loginUser, logoutUser } from "../../actions/user";
 
 class Login extends PureComponent {
 
@@ -9,6 +9,12 @@ class Login extends PureComponent {
     super()
     this.state = {
       dropdownValue: ''
+    }
+  }
+
+  componentDidMount = () =>{
+    if(this.props.location.state && this.props.location.state.type === 'logout'){
+      this.props.logoutUser()
     }
   }
 
@@ -27,8 +33,22 @@ class Login extends PureComponent {
     const users = this.props.users || {}
     const userKeys = Object.keys(users)
 
+    if(this.props.location.state && this.props.location.state.type === 'logout'){
+      return <Redirect to={{
+        pathname:'/login',
+        state: undefined
+      }} />
+    }
+
     if(this.props.loggedInUser !== null){
-      return <Redirect to='/dashboard' />
+      let path = '/dashboard'
+      if(this.props.location.state && this.props.location.state.visitedPage){
+        path = this.props.location.state.visitedPage
+      }
+      return <Redirect to={{
+        pathname:path,
+        state: undefined
+      }} />
     }
   
     return (
@@ -38,7 +58,6 @@ class Login extends PureComponent {
         <p>Please sign in to continue</p>
       </div>
       <div className="card-body">
-        <img src="" />
         <div>
           <select onChange={(event) => this.onChange(event.target.value)}>
           <option value=''>Select</option>
@@ -56,6 +75,6 @@ class Login extends PureComponent {
 
 const mapStateToProps = (store) => ({ users: store.users.users, loggedInUser: store.users.loggedInUser })
 
-const mapDispatchToProps =  { loginUser }
+const mapDispatchToProps =  { loginUser, logoutUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -10,7 +10,7 @@ return (
     <h3>{users[data.author].name} asks:</h3>
   </div>
   <div className="card-body">
-    <img src={'./images/' + users[data.author].avatarURL} width="100" className="rounded-circle" />
+    <img src={'./images/' + users[data.author].avatarURL} width="100" className="rounded-circle" alt=""/>
     <h4>Would you Rather ...</h4>
     <p>{data.optionOne.text}</p>
     <p>or</p>

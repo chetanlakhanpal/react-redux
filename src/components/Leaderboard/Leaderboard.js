@@ -1,5 +1,4 @@
 import React from 'react'
-import { _getUsers } from "../../utils/_DATA";
 import { connect } from 'react-redux';
 
 const _Leaderboard = (props) => {
@@ -21,9 +20,9 @@ const _Leaderboard = (props) => {
 
   return (
   <div className="leaderboard">
-    {users.map((value, index) => (
-      <div className="user-card">
-        <img src={'./images/' + value.avatarURL} className="rounded-circle"  width="100" />
+    {users.map((value) => (
+      <div key={value.id} className="user-card">
+        <img src={'./images/' + value.avatarURL} className="rounded-circle"  width="100" alt=""/>
         <h1>{value.name}</h1>
         <p>Answered Questions: {value.ansCount}</p>
         <p>Created Questions: {value.questions.length}</p>
